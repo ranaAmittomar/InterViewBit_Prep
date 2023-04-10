@@ -120,19 +120,31 @@ void printMajority(int arr[], int size)
 
 //Largest Sum Contiguous Subarray (Kadane’s Algorithm)  
 
-int maxSubArraySum(int arr[], int n) //Kadane's Algorithm->O(N)
+void maxSubArraySum(int arr[], int n) //Kadane's Algorithm->O(N)
 {
     int max_so_far = INT_MIN;
     int max_ending_here = 0;
+
+    int start = 0, end = 0, s = 0;
     for (int i = 0; i < n; i++)
     {
         max_ending_here = max_ending_here + arr[i];
         if (max_so_far < max_ending_here)
+        {
             max_so_far = max_ending_here;
+            start = s;
+            end = i;
+
+        }
         if (max_ending_here < 0)
+        {
             max_ending_here = 0;
+            s = i + 1;
+
+        }
     }
-    return max_so_far;
+    cout << "Maximum Contiguous sum is : " << max_so_far << endl;
+    cout << "Starting Index " << start << endl << "Ending Index " << end << endl;
 }
 
 
@@ -150,7 +162,7 @@ int main()
     int n = sizeof(a) / sizeof(a[0]);
 
     // Function Call
-    cout << "Maximum contiguous sum is " << maxSubArraySum(a, n);
+    maxSubArraySum(a, n);
     return 0;
 }
 
