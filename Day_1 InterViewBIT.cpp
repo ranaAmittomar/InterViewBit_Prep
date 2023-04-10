@@ -75,6 +75,47 @@ void findMajorityUsingSorting(int *arr, int n)
     cout << "No Majority Element is found" << endl;
 }
 
+//Find Majority Element Using Moore's Voting Algorithm
+int findCandidate(int arr[], int n)
+{
+    int maj_index = 0, count = 1;
+    for (int i = 1; i < n; i++)
+    {
+        if (arr[maj_index] == arr[i])
+            count++;
+        else
+            count--;
+        if (count == 0)
+        {
+            maj_index = i;
+            count = 1;
+        }
+    }
+    return arr[maj_index];
+}
+bool isMajority(int arr[], int n, int cand)
+{
+    int count = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] == cand)
+            count++;
+    }
+    if (count > n / 2)
+        return 1;
+    else
+        return 0;
+}
+void printMajority(int arr[], int size)
+{
+    int cand = findCandidate(arr, size);
+    if (isMajority(arr, size, cand))
+        cout << "Majority Using Moore's Algorithm : " << cand << " ";
+    else
+        cout << "No majority Element";
+}
+
+
 int main()
 {
     int arr[] = { 1,1,2,1,3,5,1 };
@@ -82,6 +123,7 @@ int main()
     findMajority(arr, n);
     findMajorityHash(arr, n);
     findMajorityUsingSorting(arr,n);
+    printMajority(arr, n);
     return 0;
 }
 
