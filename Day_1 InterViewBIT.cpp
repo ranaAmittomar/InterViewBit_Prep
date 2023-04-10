@@ -10,6 +10,7 @@
 
 using namespace std;
 
+/*
 //Majority Element->BRUTE FORCE AND OPTIMISED APPROACH..
 
 void findMajority(int arr[], int n) //Brute-Force
@@ -115,15 +116,41 @@ void printMajority(int arr[], int size)
         cout << "No majority Element";
 }
 
+*/
+
+//Largest Sum Contiguous Subarray (Kadane’s Algorithm)  
+
+int maxSubArraySum(int arr[], int n) //Kadane's Algorithm->O(N)
+{
+    int max_so_far = INT_MIN;
+    int max_ending_here = 0;
+    for (int i = 0; i < n; i++)
+    {
+        max_ending_here = max_ending_here + arr[i];
+        if (max_so_far < max_ending_here)
+            max_so_far = max_ending_here;
+        if (max_ending_here < 0)
+            max_ending_here = 0;
+    }
+    return max_so_far;
+}
+
 
 int main()
 {
+    /*
     int arr[] = { 1,1,2,1,3,5,1 };
     int n = sizeof(arr) / sizeof(arr[0]);
     findMajority(arr, n);
     findMajorityHash(arr, n);
     findMajorityUsingSorting(arr,n);
     printMajority(arr, n);
+    */
+    int a[] = { -2, -3, 4, -1, -2, 1, 5, -3 };
+    int n = sizeof(a) / sizeof(a[0]);
+
+    // Function Call
+    cout << "Maximum contiguous sum is " << maxSubArraySum(a, n);
     return 0;
 }
 
