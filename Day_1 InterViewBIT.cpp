@@ -53,12 +53,35 @@ void findMajorityHash(int arr[], int n) //Using Hashing
         cout << "No Majority Element.." << endl;
 }
 
+void findMajorityUsingSorting(int *arr, int n)
+{
+    if (n == 1)
+        cout<< arr[0];
+    int count = 1;
+    sort(arr, arr + n);
+    for (int i = 1; i <= n; i++)
+    {
+        if (arr[i -1] == arr[i])
+            count++;
+        else
+        {
+            if (count > n / 2)
+            {
+              cout<<"The Majority Element using Sorting : " << arr[i - 1]<<endl;
+            }
+            count = 1;
+        }
+    }
+    cout << "No Majority Element is found" << endl;
+}
+
 int main()
 {
     int arr[] = { 1,1,2,1,3,5,1 };
     int n = sizeof(arr) / sizeof(arr[0]);
     findMajority(arr, n);
     findMajorityHash(arr, n);
+    findMajorityUsingSorting(arr,n);
     return 0;
 }
 
